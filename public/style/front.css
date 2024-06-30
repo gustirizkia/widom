@@ -1,0 +1,23 @@
+* {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "slnt" 0;
+}
+
+.text_primary {
+    color: #01141a;
+}
+
+.bg_primary {
+    background-color: #01141a;
+}
+
+.btn_primary {
+    background-color: #293241;
+    color: white;
+}
+
+.nav-link {
+    color: white !important;
+}
