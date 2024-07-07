@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, "index"])->name("home");
 Route::get('home', [HomeController::class, "index"]);
+Route::get('service', [ServiceController::class, "index"]);
+Route::get('product', [ProductController::class, "index"])->name("product");
+Route::get('product/{slug}', [ProductController::class, "show"])->name("product.show");
 
 
 Route::middleware("guest")->group(function () {

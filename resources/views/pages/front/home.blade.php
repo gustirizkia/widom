@@ -83,16 +83,19 @@
                 @for ($i = 0; $i < 4; $i++)
                     <div class="col-md-3 mb-3">
                         <div class="card__produk p-4">
-                            <img src="{{ asset('image/produk.png') }}" alt="Wisdom Produk" class="img-fluid">
-                            <div class="title fw-bold text_primary">
-                                Cutter Wisdom (P/N) 00
-                            </div>
-                            <div class="my-1">
-                                Tools
-                            </div>
-                            <div class="fw-bold text_primary mb-3">
-                                Rp. 200.000
-                            </div>
+                            <a href="{{ route('product.show', 'cutter-wisdom') }}" style="text-decoration: unset;"
+                                class="text-dark">
+                                <img src="{{ asset('image/produk.png') }}" alt="Wisdom Produk" class="img-fluid">
+                                <div class="title fw-bold text_primary">
+                                    Cutter Wisdom (P/N) 00
+                                </div>
+                                <div class="my-1">
+                                    Tools
+                                </div>
+                                <div class="fw-bold text_primary mb-3">
+                                    Rp. 200.000
+                                </div>
+                            </a>
                             <div class="btn btn_primary w-100">
                                 Add To Card
                             </div>
