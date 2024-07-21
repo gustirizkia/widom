@@ -26,39 +26,44 @@
                     <div class="card-body">
                         <div class="fw-bold text-center">Filter</div>
 
-                        @for ($i = 1; $i < 5; $i++)
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="checkbox" value=""
-                                    id="flexCheckDefault{{ $i }}">
-                                <label class="form-check-label" for="flexCheckDefault{{ $i }}">
-                                    Kategori {{ $i }}
-                                </label>
-                            </div>
-                        @endfor
+                        <form action="">
+                            @foreach ($kategori as $index => $item)
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" value="{{ $item->slug }}"
+                                        name="kategori[]" id="flexCheckDefault{{ $index }}"
+                                        {{ in_array($item->slug, $kategoriFilter) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="flexCheckDefault{{ $index }}">
+                                        {{ $item->nama }}
+                                    </label>
+                                </div>
+                            @endforeach
 
-                        <div class="btn btn_primary w-100 mt-3">
-                            Filter Data
-                        </div>
+                            <button type="submit" class="btn btn_primary w-100 mt-3">
+                                Filter Data
+                            </button>
+                        </form>
+
 
                     </div>
                 </div>
             </div>
             <div class="col-md-9">
                 <div class="row">
-                    @for ($i = 0; $i < 6; $i++)
+                    @forelse ($items as $item)
                         <div class="col-md-4 mb-3">
                             <div class="card card__produk p-4">
-                                <a href="{{ route('product.show', 'cutter-wisdom') }}" style="text-decoration: unset;"
+                                <a href="{{ route('product.show', $item->slug) }}" style="text-decoration: unset;"
                                     class="text-dark">
-                                    <img src="{{ asset('image/produk.png') }}" alt="Wisdom Produk" class="img-fluid">
-                                    <div class="title fw-bold text_primary">
-                                        Cutter Wisdom (P/N) 00
+                                    <img src="{{ asset('storage/' . $item->thumbnail->image) }}" alt="Wisdom Produk"
+                                        class="img-fluid">
+                                    <div class="title fw-bold text_primary mt-2">
+                                        {{ $item->nama }}
                                     </div>
                                     <div class="my-1">
-                                        Tools
+                                        {{ $item->kategori->nama }}
                                     </div>
                                     <div class="fw-bold text_primary mb-3">
-                                        Rp. 200.000
+                                        Rp. {{ number_format($item->harga) }}
                                     </div>
                                 </a>
                                 <div class="btn btn-primary w-100 mb-3">
@@ -69,7 +74,12 @@
                                 </div>
                             </div>
                         </div>
-                    @endfor
+                    @empty
+                        <div class="text-center">
+                            Tidak ada data
+                        </div>
+                    @endforelse
+
                 </div>
             </div>
         </div>

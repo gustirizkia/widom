@@ -1,54 +1,62 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg_primary navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Wisdom</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/product">Produk</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/service">Service</a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-bell"></i> <span> Notification</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-heart"></i> <span> Favorite</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="bi bi-cart"></i> <span> Cart</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    @if (auth()->user())
-                        <a class="nav-link" href="/logout">
-                            <i class="bi bi-person-circle"></i> <span
-                                class="ms-2">{{ auth()->user()->first_name }}</span>
-                        </a>
-                    @else
-                        <a class="nav-link" href="/login">Login</a>
-                    @endif
-                </li>
-            </ul>
-            <div class="input-group">
-                <input type="text" class="form-control form-control-sm" name="q" style="border: unset">
-                <button class="btn " type="button" style="background-color: white">
-                    <i class="bi bi-search"></i>
-                </button>
+        <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+            id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+            <div class="offcanvas-header">
+                <img src="{{ asset('image/logo_with_name.png') }}" alt="logo wisdom">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="fw-bold mb-4">
+                    Home
+                </div>
+                <div class="fw-bold mb-4">
+                    <div class="dropdown">
+                        <div class=" " data-bs-toggle="dropdown" aria-expanded="false">
+                            Produk
+                        </div>
+                        <ul class="dropdown-menu list_kategori_produk_mobile">
+                        </ul>
+                    </div>
+                </div>
+                <div class="fw-bold mb-4">
+                    Service
+                </div>
+                <div class="fw-bold mb-4">
+                    About Us
+                </div>
             </div>
         </div>
+
     </div>
 </nav>
+
+@push('addScript')
+    <script>
+        $.ajax({
+            url: "{{ route('dataNavbar') }}",
+            method: "GET",
+            success: function(data) {
+                let kategori_produk = data.kategori_produk;
+
+                kategori_produk.forEach(element => {
+                    $(".list_kategori_produk_mobile").append(`
+                        <a class="fw-bold mb-4 dropdown-item" href="/product?kategori[]=${element.slug}"
+                            style="text-decoration: unset; color: unset">
+                            ${element.nama}
+                        </a>
+                    `)
+                });
+            },
+            error: function(err) {
+                console.log('err', err)
+            }
+        })
+    </script>
+@endpush

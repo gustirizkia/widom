@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\KategoriProduk;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -25,10 +26,10 @@ class KategoriProdukSeeder extends Seeder
             "Exterior",
         ];
 
-        foreach($kategori as $item)
-        {
-            dd($item);
+        foreach ($kategori as $item) {
+            KategoriProduk::create([
+                "nama" => $item
+            ]);
         }
-
     }
 }

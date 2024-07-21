@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger("kategori_produk_id");
             $table->string("slug");
             $table->string("nama");
             $table->decimal("harga", 20, 2)->default(0);
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string("tinggi")->nullable();
             $table->string("warna")->nullable();
             $table->string("minimal_order")->nullable();
-            $table->string("material_plastik")->nullable();
+            $table->string("material")->nullable();
 
             $table->longText("kelengkapan")->nullable();
             $table->longText("fitur")->nullable();

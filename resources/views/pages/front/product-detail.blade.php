@@ -30,7 +30,11 @@
 
         .img_product {
             width: 100px;
-            padding-right: 10px;
+            margin-right: 10px;
+        }
+
+        .img_product.active {
+            border: 2px solid rgb(0, 81, 162);
         }
 
         .list_img {
@@ -61,10 +65,10 @@
                 <div class="card detail shadow-sm">
                     <div class="card-body">
                         <h3 class="h3 fw-bold">
-                            Cutter Wisdom (PN 001)
+                            {{ $produk->nama }}
                         </h3>
                         <h4>
-                            Rp. 200.000
+                            Rp. {{ number_format($produk->harga) }}
                         </h4>
 
                         <div class="accordion" id="accordionExample">
@@ -82,25 +86,23 @@
                                             Stok 34
                                         </div>
                                         <div class="fw-bold">
-                                            Lebar 34 MM
+                                            Lebar {{ $produk->lebar }} MM
                                         </div>
                                         <div class="fw-bold">
-                                            Panjang 34 MM
+                                            Panjang {{ $produk->panjang }} MM
                                         </div>
                                         <div class="fw-bold">
-                                            Tinggi 34 MM
+                                            Tinggi {{ $produk->tinggi }} MM
+                                        </div>
+
+                                        <div class="fw-bold">
+                                            Warna {{ $produk->warna }}
                                         </div>
                                         <div class="fw-bold">
-                                            Kategori 34 MM
+                                            Minimal Order {{ $produk->minimal_order }} MM
                                         </div>
                                         <div class="fw-bold">
-                                            Warna Merah
-                                        </div>
-                                        <div class="fw-bold">
-                                            Minimal Order 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Material Plastik
+                                            Material {{ $produk->material }}
                                         </div>
                                     </div>
                                 </div>
@@ -115,30 +117,7 @@
                                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <div class="fw-bold">
-                                            Stok 34
-                                        </div>
-                                        <div class="fw-bold">
-                                            Lebar 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Panjang 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Tinggi 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Kategori 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Warna Merah
-                                        </div>
-                                        <div class="fw-bold">
-                                            Minimal Order 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Material Plastik
-                                        </div>
+                                        {!! $produk->kelengkapan !!}
                                     </div>
                                 </div>
                             </div>
@@ -152,30 +131,7 @@
                                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                                     data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <div class="fw-bold">
-                                            Stok 34
-                                        </div>
-                                        <div class="fw-bold">
-                                            Lebar 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Panjang 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Tinggi 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Kategori 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Warna Merah
-                                        </div>
-                                        <div class="fw-bold">
-                                            Minimal Order 34 MM
-                                        </div>
-                                        <div class="fw-bold">
-                                            Material Plastik
-                                        </div>
+                                        {!! $produk->fitur !!}
                                     </div>
                                 </div>
                             </div>
@@ -200,14 +156,12 @@
 
 @push('addScript')
     <script>
-        let imgProduk = [
-            "{{ asset('image/produk.png') }}",
-            "https://images.unsplash.com/photo-1717386255773-1e3037c81788?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bWFudWZhY3R1cmluZ3xlbnwwfHwwfHx8MA%3D%3D",
-            "https://plus.unsplash.com/premium_photo-1664297475950-40a4e9aefea5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bWFudWZhY3R1cmluZ3xlbnwwfHwwfHx8MA%3D%3D",
-            "https://images.unsplash.com/photo-1717386255773-a456c611dc4e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fG1hbnVmYWN0dXJpbmd8ZW58MHx8MHx8fDA%3D",
-            "https://images.unsplash.com/photo-1603114595714-55783a6dc1fe?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1hbnVmYWN0dXJpbmd8ZW58MHx8MHx8fDA%3D",
-            "https://images.unsplash.com/photo-1676018366904-c083ed678e60?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbnVmYWN0dXJpbmd8ZW58MHx8MHx8fDA%3D"
-        ];
+        let imgProduk = [];
+
+        @foreach ($produk->image as $item)
+
+            imgProduk.push("{{ asset('storage') }}" + "/{{ $item->image }}")
+        @endforeach
 
         function selectImageActive(idx) {
             $(".thumbnail").attr("src", imgProduk[parseInt(idx)])
@@ -216,7 +170,7 @@
             imgProduk.forEach((element, index) => {
                 tagHtml += `
                     <div class="" onclick="selectImageActive(${index})">
-                        <img src="${element}" alt="" class="img-fluid img_product">
+                        <img src="${element}" alt="" class="img-fluid img_product ${parseInt(index) === parseInt(idx) ? "active" : ''}">
                     </div>
                 `;
             });
