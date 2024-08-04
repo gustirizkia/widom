@@ -80,28 +80,33 @@
     <div id="produk" class="py-5">
         <div class="container">
             <div class="row">
-                @for ($i = 0; $i < 4; $i++)
+                @foreach ($produk as $item)
                     <div class="col-md-3 mb-3">
                         <div class="card__produk p-4">
-                            <a href="{{ route('product.show', 'cutter-wisdom') }}" style="text-decoration: unset;"
+                            <a href="{{ route('product.show', $item->slug) }}" style="text-decoration: unset;"
                                 class="text-dark">
-                                <img src="{{ asset('image/produk.png') }}" alt="Wisdom Produk" class="img-fluid">
-                                <div class="title fw-bold text_primary">
-                                    Cutter Wisdom (P/N) 00
+                                <img src="{{ asset('storage/' . $item->imageThumbnail->image) }}"
+                                    alt="Produk {{ $item->nama }}" class="img-fluid">
+                                <div class="title fw-bold text_primary mt-2">
+                                    {{ $item->nama }}
                                 </div>
                                 <div class="my-1">
-                                    Tools
+                                    {{ $item->kategori->nama }}
                                 </div>
                                 <div class="fw-bold text_primary mb-3">
-                                    Rp. 200.000
+                                    Rp. {{ number_format($item->harga) }}
                                 </div>
                             </a>
-                            <div class="btn btn_primary w-100">
-                                Add To Card
-                            </div>
+                            <form action="{{ route('cart.store') }}" method="post">
+                                @csrf
+                                <input type="text" name="slug" hidden value="{{ $item->slug }}">
+                                <button type="submit" class="btn btn_primary w-100">
+                                    Add To Card
+                                </button>
+                            </form>
                         </div>
                     </div>
-                @endfor
+                @endforeach
             </div>
         </div>
     </div>

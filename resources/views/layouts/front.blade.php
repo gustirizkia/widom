@@ -15,16 +15,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('style/front.css') }}">
     @stack('addStyle')
+
+    <style>
+        .count__cart {
+            background-color: #4063fe;
+            color: white;
+            bottom: 0;
+            font-size: 10px;
+            padding: 3px 7px 3px 7px;
+            right: 0;
+            border-radius: 100px;
+
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="d-md-block d-none">
-        @include('includes.front.nav')
-    </div>
-    <div class="d-md-none d-block">
-        @include('includes.front.nav_mobile')
-    </div>
+    <x-navbar />
+
+
 
     <div class="container">
         @if ($errors->any())
@@ -55,6 +65,16 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
+
+    @if (Session::get('success'))
+        <script>
+            Swal.fire({
+                icon: "success",
+                title: "{{ Session::get('success') }}"
+            });
+        </script>
+    @endif
+
     @stack('addScript')
 </body>
 

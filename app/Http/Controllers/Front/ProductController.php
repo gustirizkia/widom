@@ -34,7 +34,7 @@ class ProductController extends Controller
     }
     public function show($slug)
     {
-        $produk = Produk::where("slug", $slug)->first();
+        $produk = Produk::where("slug", $slug)->firstOrFail();
 
         return view("pages.front.product-detail", compact("produk"));
     }

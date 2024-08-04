@@ -6,24 +6,11 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Produk extends Model
+class Pageweb extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
-
-    public function kategori()
-    {
-        return $this->belongsTo(KategoriProduk::class, "kategori_produk_id", "id");
-    }
-    public function image()
-    {
-        return $this->hasMany(ImageProduk::class, "produk_id", "id");
-    }
-    public function imageThumbnail()
-    {
-        return $this->hasOne(ImageProduk::class, "produk_id", "id")->where("is_thumbnail", 1);
-    }
 
     protected static function boot()
     {

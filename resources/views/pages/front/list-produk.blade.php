@@ -66,12 +66,22 @@
                                         Rp. {{ number_format($item->harga) }}
                                     </div>
                                 </a>
-                                <div class="btn btn-primary w-100 mb-3">
-                                    Checkout
-                                </div>
-                                <div class="btn btn_primary w-100">
-                                    Add To Card
-                                </div>
+                                <form action="{{ route('transaksi.store') }}" method="post">
+                                    @csrf
+                                    <input type="text" name="produk_id[]" value="{{ $item->id }}" hidden>
+                                    <input type="text" name="qty[]" value="1" hidden>
+                                    <button class="btn btn-primary w-100 mb-3">
+                                        Checkout
+                                    </button>
+
+                                </form>
+                                <form action="{{ route('cart.store') }}" method="post">
+                                    @csrf
+                                    <input type="text" name="slug" hidden value="{{ $item->slug }}">
+                                    <button type="submit" class="btn btn_primary w-100">
+                                        Add To Card
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     @empty
