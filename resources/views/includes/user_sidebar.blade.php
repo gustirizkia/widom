@@ -11,6 +11,15 @@
 
 
                 <div class="menu-item"><!--begin:Menu link-->
+                    <a class="menu-link {{ request()->is('projek*') ? 'active' : '' }}"
+                        href="{{ route('projek.index') }}">
+                        <span class="menu-icon"><i class="ki-duotone ki-calendar-8 fs-2"><span
+                                    class="path1"></span><span class="path2"></span><span class="path3"></span><span
+                                    class="path4"></span><span class="path5"></span><span
+                                    class="path6"></span></i></span><span class="menu-title">Projek</span>
+                    </a><!--end:Menu link-->
+                </div>
+                <div class="menu-item"><!--begin:Menu link-->
                     <a class="menu-link {{ request()->is('transaksi*') ? 'active' : '' }}"
                         href="{{ route('transaksi.index') }}">
                         <span class="menu-icon"><i class="ki-duotone ki-calendar-8 fs-2"><span

@@ -20,7 +20,12 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(
-            [KategoriProdukSeeder::class]
+            [
+                RegProvinceSeeder::class,
+                RegRegencySeeder::class,
+                RegDistrictSeeder::class,
+                RegVillageSeeder::class,
+            ]
         );
     }
 }

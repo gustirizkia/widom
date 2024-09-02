@@ -33,7 +33,7 @@
 
                                 <input type="password" class="form-control" name="password">
                             </div>
-                            <button type="submit" class="btn btn_primary w-100 mt-4">Register</button>
+                            <button type="submit" class="btn btn_primary w-100 mt-4">Login</button>
 
                             <div class="text-center mt-3">
                                 New to Wisdom ?

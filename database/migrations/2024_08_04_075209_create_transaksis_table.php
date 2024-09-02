@@ -19,6 +19,10 @@ return new class extends Migration
             $table->decimal("amount", 20);
             $table->string("status")->default("dalam proses");
             $table->string("bukti_bayar")->nullable();
+            $table->string("provinsi")->nullable();
+            $table->string("kota")->nullable();
+            $table->string("kecamatan")->nullable();
+            $table->longText("alamat_lengkap");
             $table->dateTime("tanggal_bayar")->nullable();
             $table->timestamps();
         });

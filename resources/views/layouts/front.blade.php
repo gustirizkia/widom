@@ -14,6 +14,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('style/front.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     @stack('addStyle')
 
     <style>
@@ -66,11 +69,29 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
         crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $('.select2').select2({
+            theme: 'bootstrap-5',
+            width: "100%"
+        });
+    </script>
+
     @if (Session::get('success'))
         <script>
             Swal.fire({
                 icon: "success",
-                title: "{{ Session::get('success') }}"
+                title: "{{ Session::get('success') }}",
+                text: "{{ Session::get('message') }}"
+            });
+        </script>
+    @endif
+    @if (Session::get('error'))
+        <script>
+            Swal.fire({
+                icon: "error",
+                title: "{{ Session::get('error') }}"
             });
         </script>
     @endif

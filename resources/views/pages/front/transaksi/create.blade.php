@@ -67,12 +67,48 @@
                                 Pilih Bank
                             </label>
 
-                            <select name="bank_id" class="form-select select2">
+                            <select name="bank_id" class="form-select select2 bank">
                                 <option value="">Pilih Bank</option>
                                 @foreach ($bank as $item)
                                     <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <label class="label form-label ">
+                                Alamat Pengiriman
+                            </label>
+
+                            <div class="mb-3">
+                                <select name="provinsi" class="form-select select2 provinsi"
+                                    data-placeholder="Pilih provinsi">
+                                    <option value="">Pilih Provinsi</option>
+                                    @foreach ($provinsi as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <select name="kota" class="form-select select2 mb-3 kota" data-placeholder="Pilih kota">
+                                    <option value="">Pilih Kota</option>
+
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <select name="kecamatan" class="form-select select2 mb-3 kecamatan"
+                                    data-placeholder="Pilih kecamatan">
+                                    <option value="">Pilih kecamatan</option>
+
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="alamat_lengkap" class="form-control" placeholder="Villa pamulang"></textarea>
+                            </div>
                         </div>
                     </div>
 
@@ -102,11 +138,97 @@
                         </div>
                     </div>
 
-                    <button class="btn btn_primary w-100 mt-4">
+                    <div class="btn btn_primary w-100 mt-4 submit_data">
                         Checkout
-                    </button>
+                    </div>
                 </div>
             </div>
         </form>
     </div>
 @endsection
+
+
+@push('addScript')
+    <script>
+        $(".provinsi").on("change", function() {
+            let value = $(this).val();
+
+            $.ajax({
+                url: `{{ url('kota') }}/${value}`,
+                method: "GET",
+                success: function(data) {
+                    let tagHtml = "<option value="
+                    ">Pilih Kota</option>";
+
+                    data.forEach(element => {
+                        tagHtml += `<option value="${element.id}">${element.name}</option>`
+                    });
+
+                    $(".kota").html(tagHtml);
+                },
+                error: function(err) {
+                    console.log('err', err)
+                }
+            })
+        });
+        $(".kota").on("change", function() {
+            let value = $(this).val();
+
+            $.ajax({
+                url: `{{ url('kecamatan') }}/${value}`,
+                method: "GET",
+                success: function(data) {
+                    let tagHtml = "<option value="
+                    ">Pilih Kota</option>";
+
+                    data.forEach(element => {
+                        tagHtml += `<option value="${element.id}">${element.name}</option>`
+                    });
+
+                    $(".kecamatan").html(tagHtml);
+                },
+                error: function(err) {
+                    console.log('err', err)
+                }
+            })
+        });
+
+        $(".submit_data").on("click", function() {
+            let bank = $(".bank").val();
+            let provinsi = $(".provinsi").val();
+            let kota = $(".kota").val();
+            let kecamatan = $(".kecamatan").val();
+            let alamat_lengkap = $(".alamat_lengkap").val();
+
+            let errMsg = null;
+
+            if (bank === "") {
+                errMsg = "Pilih Bank Terlebih Dahulu";
+            } else if (provinsi === "") {
+                errMsg = "Pilih Provinsi Terlebih Dahulu";
+            } else if (kota === "") {
+                errMsg = "Pilih Kota Terlebih Dahulu";
+            } else if (kecamatan === "") {
+                errMsg = "Pilih Kecamatan Terlebih Dahulu";
+            } else if (alamat_lengkap === "") {
+                errMsg = "Isi Alamat Lengkap Telebih Dahulu"
+            }
+
+
+
+            if (errMsg) {
+                Swal.fire({
+                    icon: "info",
+                    title: errMsg
+                });
+
+                return;
+            }
+
+            $("form").submit();
+
+
+
+        })
+    </script>
+@endpush

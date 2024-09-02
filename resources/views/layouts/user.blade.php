@@ -62,7 +62,7 @@
             if (themeMode === "system") {
                 themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
             }
-            document.documentElement.setAttribute("data-bs-theme", themeMode);
+            document.documentElement.setAttribute("data-bs-theme", defaultThemeMode);
         }
     </script>
     <!--end::Theme mode setup on page load-->
@@ -71,7 +71,7 @@
         <!--begin::Page-->
         <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
             <!--begin::Header-->
-            {{-- @include('includes.admin.header') --}}
+            @include('includes.admin.header')
             <!--end::Header-->
             <!--begin::Wrapper-->
             <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
@@ -107,20 +107,7 @@
                     <!--begin::sidebar menu-->
                     @include('includes.user_sidebar')
                     <!--end::sidebar menu-->
-                    <!--begin::Footer-->
-                    <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-6" id="kt_app_sidebar_footer">
-                        <a href="https://preview.keenthemes.com/html/metronic/docs"
-                            class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100"
-                            data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss-="click"
-                            title="200+ in-house components and 3rd-party plugins">
-                            <span class="btn-label">Docs & Components</span>
-                            <i class="ki-duotone ki-document btn-icon fs-2 m-0">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                        </a>
-                    </div>
-                    <!--end::Footer-->
+
                 </div>
                 <!--end::Sidebar-->
                 <!--begin::Main-->

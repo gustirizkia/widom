@@ -55,7 +55,11 @@ class PageWebController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Pageweb::findOrFail($id);
+
+        return view("pages.admin.pageWeb.edit", [
+            "data" => $data
+        ]);
     }
 
     /**
@@ -63,7 +67,18 @@ class PageWebController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $item = Pageweb::findOrFail($id);
+
+        $data = $request->except("_token", '_method');
+
+        if ($request->image) {
+            $data["image"] = $request->image->store("page-web", 'public');
+        }
+
+        $item->update($data);
+
+        return redirect()->route("admin.page-web.index")->with("success", "Berhasil update data");
     }
 
     /**
@@ -71,6 +86,10 @@ class PageWebController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Pageweb::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route("admin.page-web.index")->with("success", "Berhasil hapus data");
     }
 }

@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\Auth\UserAuthController;
 use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\JasaController;
 use App\Http\Controllers\Front\ProductController;
+use App\Http\Controllers\Front\ProjekController;
 use App\Http\Controllers\Front\ServiceController;
 use App\Http\Controllers\Front\TransaksiController;
 use App\Http\Controllers\PageController;
@@ -44,7 +47,13 @@ Route::get('/logout', function () {
 
 Route::middleware("auth")->group(function () {
     Route::resource("cart", CartController::class);
+    Route::resource("projek", ProjekController::class);
     Route::resource("transaksi", TransaksiController::class);
 });
 
 Route::get("page/{slug}", [PageController::class, "index"])->name("page-web");
+
+Route::get("kota/{provinsi}", [AlamatController::class, "getKota"])->name("getKota");
+Route::get("kecamatan/{kota}", [AlamatController::class, "getKecamatan"])->name("getKecamatan");
+
+Route::resource("jasa", JasaController::class);

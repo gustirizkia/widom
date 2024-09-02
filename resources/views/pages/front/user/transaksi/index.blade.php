@@ -10,7 +10,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <div class="tabel-responsive">
+            <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead>
                         <tr>

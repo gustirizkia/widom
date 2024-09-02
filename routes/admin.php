@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminJasaController;
+use App\Http\Controllers\Admin\AdminProjekController;
 use App\Http\Controllers\Admin\PageWebController;
 use App\Http\Controllers\Admin\Produk\ItemProdukController;
 use App\Http\Controllers\Admin\Produk\KategoriProdukController;
+use App\Http\Controllers\Admin\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -12,5 +15,9 @@ Route::prefix("admin")->name("admin.")->group(function () {
         Route::resource("item", ItemProdukController::class);
     });
 
+    Route::resource("jasa", AdminJasaController::class);
+
+    Route::get("projek", [AdminProjekController::class, "index"])->name("projek.index");
     Route::resource("page-web", PageWebController::class);
+    Route::resource("transaksi", TransaksiController::class);
 });

@@ -8,13 +8,15 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-4" style="min-width: 18rem;">
-                        <div class="input-group">
-                            <input type="text" class="form-control form-control-sm" name="q"
-                                style="border: unset">
-                            <button class="btn " type="button" style="background-color: white">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
+                        <form action="{{ route('product') }}" method="get">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" name="q"
+                                    placeholder="Cari data" value="{{ request()->get('q') }}" style="border: unset">
+                                <button class="btn " type="button" style="background-color: white">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
@@ -82,8 +84,21 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/service">Service</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Service
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach ($kategoriJasa as $item)
+                                    <li><a class="dropdown-item"
+                                            href="/jasa?kategori[]={{ $item->slug }}">{{ $item->nama }}</a></li>
+                                @endforeach
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/jasa">All Service</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -95,10 +110,13 @@
                                     <li><a class="dropdown-item"
                                             href="{{ route('page-web', $item->slug) }}">{{ $item->nama }}</a></li>
                                 @endforeach
+                                <li><a class="dropdown-item" href="/">Blog</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="/">Blog</a></li>
+                                <li><a class="dropdown-item" href="{{ route('projek.create') }}">Ajukan Projek</a>
+                                </li>
+
                             </ul>
                         </li>
                     </ul>
@@ -112,11 +130,35 @@
 <div class="d-md-none d-block">
     <nav class="navbar navbar-expand-lg bg-body-tertiary bg_primary navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Wisdom</a>
-            <button class="btn btn-outline-primary" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <div class="d-flex">
+                <div type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+                    aria-controls="offcanvasScrolling">
+                    <img src="{{ asset('image/logo_mobile.png') }}" alt="" class="img-fluid">
+                </div>
+
+            </div>
+            <div class="ms-auto text-white d-flex">
+                <div class="">
+                    <i class="bi bi-search"></i>
+                </div>
+                <div class="ms-3"><i class="bi bi-bell"></i></div>
+                {{-- <div class="ms-3"><i class="bi bi-heart"></i></div> --}}
+                <div class="ms-3">
+                    <i class="bi bi-cart"></i>
+                    @if (count($cart))
+                        <span class="count__cart position-absolute">
+                            {{ $cart->sum('qty') }}
+                        </span>
+                    @endif
+                </div>
+                <div class="ms-3">
+                    <a href="{{ route('transaksi.index') }}" class="text-white">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+                </div>
+
+            </div>
+
 
             <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
                 id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
@@ -154,8 +196,21 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="fw-bold mb-4">
-                        Service
+
+                    <div class="dropdown fw-bold mb-4">
+                        <div class=" " data-bs-toggle="dropdown" aria-expanded="false">
+                            Service
+                        </div>
+                        <ul class="dropdown-menu">
+                            @foreach ($kategoriJasa as $item)
+                                <li><a class="dropdown-item"
+                                        href="/jasa?kategori[]={{ $item->slug }}">{{ $item->nama }}</a></li>
+                            @endforeach
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="/jasa">All Service</a></li>
+                        </ul>
                     </div>
                     <div class="dropdown fw-bold">
                         <div class=" " data-bs-toggle="dropdown" aria-expanded="false">

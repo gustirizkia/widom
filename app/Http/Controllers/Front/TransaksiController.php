@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Bank;
 use App\Models\Cart;
 use App\Models\Produk;
+use App\Models\RegDistrict;
+use App\Models\RegProvince;
+use App\Models\RegRegency;
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
 use Exception;
@@ -51,11 +54,14 @@ class TransaksiController extends Controller
 
         $bank = Bank::orderBy("nama")->get();
 
+        $provinsi = RegProvince::orderBy("name", "asc")->get();
+
         return view("pages.front.transaksi.create", [
             'produk' => $produk,
             "totalHarga" => $totalHarga,
             "totalItem" => $totalItem,
-            "bank" => $bank
+            "bank" => $bank,
+            "provinsi" => $provinsi
         ]);
     }
 
@@ -76,10 +82,19 @@ class TransaksiController extends Controller
 
         try {
 
+            $provinsi = RegProvince::find($request->provinsi);
+            $kota = RegRegency::find($request->kota);
+            $kecamatan = RegDistrict::find($request->kecamatan);
+
+
             $transaksi = Transaksi::create([
                 "user_id" => auth()->user()->id,
                 "amount" => $request->amount,
                 "bank_id" => $request->bank_id,
+                "provinsi" => $provinsi->name,
+                "kota" => $kota->name,
+                "kecamatan" => $kecamatan->name,
+                "alamat_lengkap" => $request->alamat_lengkap,
             ]);
 
             foreach ($request->produk_id as $index => $item) {
@@ -110,10 +125,17 @@ class TransaksiController extends Controller
      */
     public function show(string $id)
     {
-        $transaksi = Transaksi::findOrFail($id);
+        $transaksi = Transaksi::with("detail.produk")->findOrFail($id);
+
+        $grandTotal = 0;
+
+        foreach ($transaksi->detail as $item) {
+            $grandTotal += $item->harga * $item->qty;
+        }
 
         return view("pages.front.user.transaksi.detail", [
-            'transaksi' => $transaksi
+            'transaksi' => $transaksi,
+            "grandTotal" => $grandTotal
         ]);
     }
 
@@ -130,7 +152,17 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $transaksi = Transaksi::findOrFail($id);
+        $data = $request->except("_token", "_method");
+
+        if ($request->bukti_bayar) {
+            $data["bukti_bayar"] = $request->bukti_bayar->store("bukti-bayar", "public");
+            $data["status"] = "Menunggu Konfirmasi";
+        }
+
+        $transaksi->update($data);
+
+        return redirect()->back()->with("success", "Berhasil simpan data");
     }
 
     /**

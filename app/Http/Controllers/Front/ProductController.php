@@ -22,6 +22,11 @@ class ProductController extends Controller
             $kategoriFilter = [];
         }
 
+        $search = $request->q;
+        if ($search) {
+            $items = $items->where("nama", "LIKE", "%$search%");
+        }
+
         $items = $items->with("kategori", "image")->paginate(12);
 
         foreach ($items as $item) {
