@@ -70,6 +70,7 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
+
         if (!$request->checkout) {
             $data = $request->except("_token");
 

@@ -8,7 +8,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.produk.kategori.update', $kategori->id) }}" method="post">
+            <form action="{{ route('admin.master-data.produk.kategori.update', $kategori->id) }}" method="post">
                 @csrf
                 @method('PUT')
                 <div class="row">

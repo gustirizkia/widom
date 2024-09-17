@@ -67,6 +67,11 @@
 
                         </li>
 
+                        <li class="nav-item ">
+                            <a class="nav-link active" aria-current="page" href="/blog">Blog</a>
+
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -95,14 +100,17 @@
                                             href="/jasa?kategori[]={{ $item->slug }}">{{ $item->nama }}</a></li>
                                 @endforeach
                                 <li>
+                                    <a class="dropdown-item" href="{{ route('projek.create') }}">Ajukan Projek</a>
+                                </li>
+                                <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item" href="/jasa">All Service</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 About Us
                             </a>
                             <ul class="dropdown-menu">
@@ -110,11 +118,12 @@
                                     <li><a class="dropdown-item"
                                             href="{{ route('page-web', $item->slug) }}">{{ $item->nama }}</a></li>
                                 @endforeach
-                                <li><a class="dropdown-item" href="/">Blog</a></li>
+
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="{{ route('projek.create') }}">Ajukan Projek</a>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('projek.create') }}">Ajukan Projek</a>
                                 </li>
 
                             </ul>

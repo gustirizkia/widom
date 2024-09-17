@@ -6,15 +6,18 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use App\Models\KategoriProduk;
 use App\Http\Controllers\Controller;
+use App\Models\WebConfig;
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
         $produk = Produk::query()->with("imageThumbnail", "kategori")->limit(4)->get();
+        $webConfig = WebConfig::get();
 
         return view("pages.front.home", [
-            'produk' => $produk
+            'produk' => $produk,
+            "webConfig" => $webConfig
         ]);
     }
 

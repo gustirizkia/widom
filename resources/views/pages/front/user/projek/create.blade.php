@@ -6,6 +6,9 @@
 
 @push('addStyle')
     <link href="https://unpkg.com/gijgo@1.9.14/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <style>
         .cart_image {
             width: 130px;
@@ -54,7 +57,7 @@
                                                 <i class="bi bi-file-earmark-arrow-up"></i>
                                             </div>
                                             <div class="fw-bold mt-2">
-                                                Upload Pembayaran
+                                                Upload Refrensi Gambar/Design
                                             </div>
 
                                         </div>
@@ -62,7 +65,22 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="" class="form-label">
+                                    <label for="" class="form-label fw-bold">
+                                        Pilih Jasa
+                                    </label>
+                                    <select name="jasa[]" data-placeholder="Pilih Jasa" multiple
+                                        class="form-select select2">
+                                        <option value=""></option>
+                                        @foreach ($kategoriJasa as $item)
+                                            <option value="{{ $item->id }}">
+                                                {{ $item->nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label fw-bold">
                                         STEP, IGES, MESH, PARASOLID
                                     </label>
                                     <input type="file" class="form-control" name="file">
@@ -97,10 +115,15 @@
 
 @push('addScript')
     <script src="https://unpkg.com/gijgo@1.9.14/js/gijgo.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
 
     <script>
         $('#datepicker').datepicker({
             uiLibrary: 'bootstrap5'
+        });
+        $('.select2').select2({
+            theme: 'bootstrap-5',
+            width: "100%"
         });
         $(".card_upload_pembayaran").on("click", function() {
             console.log("Hallo");

@@ -16,14 +16,7 @@
                         {{ $projek->nama }}
                     </h3>
                 </div>
-                <div class="mb-3 col-md-3">
-                    <label for="" class="form-label">
-                        Deadline
-                    </label>
-                    <h3 class="h3">
-                        {{ $projek->deadline }}
-                    </h3>
-                </div>
+
                 <div class="mb-3 col-md-3">
                     <label for="" class="form-label">
                         Image
@@ -43,6 +36,19 @@
                         <!--end::Action-->
                     </a>
                 </div>
+
+                <div class="mb-3 col-md-3">
+                    <label for="" class="form-label">
+                        Jasa yang dipilih
+                    </label>
+                    <div class="">
+                        @foreach ($projek->projekHasKategoriJasa as $item)
+                            <span class="badge text-bg-primary text-white">{{ $item->kategoriJasa->nama }}</span>
+                        @endforeach
+
+                    </div>
+                </div>
+
                 <div class="mb-3 col-md-7 ">
                     <label for="" class="form-label">
                         Keterangan

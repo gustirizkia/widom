@@ -2,7 +2,7 @@
 
 
 @section('title')
-    Item Produk
+    Bank
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
             <form action="">
                 <div class="row mb-3 justify-content-between">
                     <div class="col-md-2">
-                        <a href="{{ route('admin.master-data.produk.item.create') }}" class="btn btn-primary">
+                        <a href="{{ route('admin.master-data.produk.kategori.create') }}" class="btn btn-primary">
                             Tambah Data
                         </a>
                     </div>
@@ -35,7 +35,7 @@
                                 Nama
                             </th>
                             <th>
-                                Kategori
+                                Nomor Rekening
                             </th>
                             <th>
                                 Aksi
@@ -52,7 +52,7 @@
                                     {{ $item->nama }}
                                 </td>
                                 <td>
-                                    {{ $item->kategori->nama }}
+                                    {{ $item->nomor }}
                                 </td>
                                 <td>
                                     <div class="d-flex">

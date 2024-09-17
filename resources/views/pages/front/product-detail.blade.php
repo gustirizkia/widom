@@ -137,20 +137,83 @@
                             </div>
                         </div>
 
+                        <div class="my-3 d-flex justify-content-end">
+                            <div class="" style="width: 30%">
+
+                                <div class="input-group ">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-min">
+                                        <i class="bi bi-dash-circle"></i>
+                                    </button>
+                                    <input type="text" class="form-control qty" value="1" style="text-align:center;"
+                                        aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                    <button class="btn btn-outline-primary" type="button" id="button-plus">
+                                        <i class="bi bi-plus-circle-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mt-3">
-                            <a href="" class="btn btn_primary w-100">
-                                Add To Cart <i class="bi bi-cart"></i>
-                            </a>
+                            <form action="{{ route('cart.store') }}" method="post">
+                                @csrf
+                                <input type="text" name="slug" value="{{ $produk->slug }}" hidden>
+                                <input type="text" class="form-control qty" value="1" name="qty" hidden>
+                                <button class="btn btn_primary w-100">
+                                    Add To Cart <i class="bi bi-cart"></i>
+                                </button>
+                            </form>
                         </div>
                         <div class="mt-3">
-                            <a href="" class="btn btn-primary w-100">
-                                Order
-                            </a>
+                            <form action="{{ route('transaksi.store') }}" method="post">
+                                @csrf
+                                <input type="text" name="produk_id[]" value="{{ $produk->id }}" hidden>
+                                <input type="text" name="qty[]" value="1" class="qty" hidden>
+                                <button class="btn btn-primary w-100 mb-3">
+                                    Checkout
+                                </button>
+
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        {{-- Produk Lainnya --}}
+        @if (count($produkLainnya))
+            <h3 class="h3">Produk Serupa</h3>
+            <div class="row">
+                @foreach ($produkLainnya as $item)
+                    <div class="col-md-3 mb-3">
+                        <div class="card card__produk p-4">
+                            <a href="{{ route('product.show', $item->slug) }}" style="text-decoration: unset;"
+                                class="text-dark">
+                                <img src="{{ asset('storage/' . $item->thumbnail->image) }}" alt="Wisdom Produk"
+                                    class="img-fluid">
+                                <div class="title fw-bold text_primary mt-2">
+                                    {{ $item->nama }}
+                                </div>
+                                <div class="my-1">
+                                    {{ $item->kategori->nama }}
+                                </div>
+                                <div class="fw-bold text_primary mb-3">
+                                    Rp. {{ number_format($item->harga) }}
+                                </div>
+                            </a>
+
+                            <form action="{{ route('cart.store') }}" method="post">
+                                @csrf
+                                <input type="text" name="slug" hidden value="{{ $item->slug }}">
+                                <button type="submit" class="btn btn_primary w-100">
+                                    Add To Card
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+        {{-- Produk Lainnya end --}}
     </div>
 @endsection
 
@@ -179,5 +242,21 @@
         }
 
         selectImageActive(0)
+
+        $("#button-plus").on("click", function() {
+            let qty = parseInt($(".qty").val());
+
+            $(".qty").val(qty + 1)
+
+        })
+
+        $("#button-min").on("click", function() {
+            let qty = parseInt($(".qty").val());
+
+            if (qty > 1) {
+                $(".qty").val(qty - 1)
+            }
+
+        })
     </script>
 @endpush

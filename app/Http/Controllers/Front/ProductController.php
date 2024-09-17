@@ -41,6 +41,11 @@ class ProductController extends Controller
     {
         $produk = Produk::where("slug", $slug)->firstOrFail();
 
-        return view("pages.front.product-detail", compact("produk"));
+        $produkLainnya = Produk::where("kategori_produk_id", $produk->kategori_produk_id)
+            ->where("id", "!=", $produk->id)
+            ->limit(4)
+            ->get();
+
+        return view("pages.front.product-detail", compact("produk", "produkLainnya"));
     }
 }

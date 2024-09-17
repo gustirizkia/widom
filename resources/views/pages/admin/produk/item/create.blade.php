@@ -19,7 +19,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.produk.item.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.master-data.produk.item.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-4 mb-3">

@@ -37,10 +37,10 @@
             <div class="row">
                 <div class="col-md-5">
                     <h1 class="h1 text-white fw-bold">
-                        Ciptakan dan produksi <br> apa saja
+                        {{ contentWeb('title_header_home') }}
                     </h1>
                     <h5 class="text-white">
-                        Rancang, rekayasa, dan produksi produk yang lebih baik dengan desain dan manufaktur produk kami.
+                        {{ contentWeb('subtitle_header_home') }}
                     </h5>
 
                     <div class="btn text_primary fw-bold px-5 my-3" style="background: white">
@@ -65,12 +65,10 @@
                 </div>
                 <div class="col-md-7">
                     <h2 class="h2">
-                        Lihat hal-hal menakjubkan yang dirancang dan dibuat oleh wisdom
+                        {{ contentWeb('title_about') }}
                     </h2>
                     <p style="font-size: 20px; font-weight: 500">
-                        Mulai dari bangunan ramah lingkungan hingga produk pintar hingga produk blockbuster yang memukau,
-                        orang-orang di seluruh industri memercayai proses produksi untuk
-                        membantu mereka merancang dan membuat apa pun.
+                        {{ contentWeb('subtitle_about') }}
                     </p>
                 </div>
             </div>

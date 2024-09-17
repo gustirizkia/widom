@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\JasaKategori;
 use App\Models\Projek;
+use App\Models\ProjekHasKategoriJasa;
+use App\Models\TransaksiHasKategoriJasa;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProjekController extends Controller
 {
@@ -24,7 +29,11 @@ class ProjekController extends Controller
      */
     public function create()
     {
-        return view("pages.front.user.projek.create");
+        $kategoriJasa = JasaKategori::orderBy("nama", "asc")->get();
+
+        return view("pages.front.user.projek.create", [
+            'kategoriJasa' => $kategoriJasa
+        ]);
     }
 
     /**
@@ -32,28 +41,51 @@ class ProjekController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             "nama" => "required|string",
             "deskripsi" => "required|string",
             "image" => "image",
             "dealine" => "string",
+            "jasa" => "required",
         ]);
-        $data = $request->except("_token");
 
-        $data["deadline"] = Carbon::parse($request->deadline);
+        DB::beginTransaction();
 
-        if ($request->image) {
-            $data["image"] = $request->image->store("projek/img", "public");
+        try {
+
+            $data = $request->except("_token", "jasa");
+
+            $data["deadline"] = Carbon::parse($request->deadline);
+
+            if ($request->image) {
+                $data["image"] = $request->image->store("projek/img", "public");
+            }
+            if ($request->file) {
+                $data["file"] = $request->file->store("projek/file", "public");
+            }
+
+            $data["user_id"] = auth()->user()->id;
+
+            $insert = Projek::create($data);
+
+            foreach ($request->jasa as $item) {
+                $projekHasKategoriJasa = ProjekHasKategoriJasa::create([
+                    "projek_id" => $insert->id,
+                    "kategori_jasa_id" => $item
+                ]);
+            }
+
+
+
+            DB::commit();
+
+            return redirect()->back()->with("success", "Berhasil menambahkan projek")->with("message", "Selanjutnya akan diproses");
+        } catch (Exception $th) {
+            DB::rollBack();
+
+            return redirect()->back()->with("error", "Terjadi Kesalahan Server");
         }
-        if ($request->file) {
-            $data["file"] = $request->file->store("projek/file", "public");
-        }
-
-        $data["user_id"] = auth()->user()->id;
-
-        $insert = Projek::create($data);
-
-        return redirect()->back()->with("success", "Berhasil menambahkan projek")->with("message", "Selanjutnya akan diproses");
     }
 
     /**
@@ -61,7 +93,7 @@ class ProjekController extends Controller
      */
     public function show(string $id)
     {
-        $projek = Projek::find(decodeHashIds($id));
+        $projek = Projek::with("projekHasKategoriJasa.kategoriJasa")->find(decodeHashIds($id));
 
         return view("pages.front.user.projek.detail", [
             'projek' => $projek

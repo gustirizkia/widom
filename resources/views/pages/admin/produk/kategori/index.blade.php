@@ -11,7 +11,7 @@
             <form action="">
                 <div class="row mb-3 justify-content-between">
                     <div class="col-md-2">
-                        <a href="{{ route('admin.produk.kategori.create') }}" class="btn btn-primary">
+                        <a href="{{ route('admin.master-data.produk.kategori.create') }}" class="btn btn-primary">
                             Tambah Data
                         </a>
                     </div>
@@ -56,11 +56,11 @@
                                 </td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('admin.produk.kategori.edit', $item->id) }}"
+                                        <a href="{{ route('admin.master-data.produk.kategori.edit', $item->id) }}"
                                             class="btn btn-primary btn-sm">
                                             Edit
                                         </a>
-                                        <form action="{{ route('admin.produk.kategori.destroy', $item->id) }}"
+                                        <form action="{{ route('admin.master-data.produk.kategori.destroy', $item->id) }}"
                                             method="post">
                                             @csrf
                                             @method('DELETE')

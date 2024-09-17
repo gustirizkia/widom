@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\WebConfig;
 use Vinkla\Hashids\Facades\Hashids;
 
 function encodeHashIds($id)
@@ -13,4 +14,13 @@ function decodeHashIds($id)
     } else {
         return abort(500);
     }
+}
+
+function contentWeb($flag)
+{
+    $content = "";
+
+    $webConfig = WebConfig::where("flag", $flag)->first();
+
+    return $webConfig ? $webConfig->content : "";
 }

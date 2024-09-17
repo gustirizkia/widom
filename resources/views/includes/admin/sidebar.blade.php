@@ -8,8 +8,90 @@
             <!--begin::Menu-->
             <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu"
                 data-kt-menu="true" data-kt-menu-expand="false">
+
+                {{-- Master Data --}}
+
+                <!--begin::Menu item-->
+                <div class="menu-item menu-sub-indention menu-accordion {{ request()->is('admin/master-data*') ? 'show' : '' }}"
+                    data-kt-menu-trigger="click">
+                    <!--begin::Menu link-->
+                    <a href="#" class="menu-link py-3">
+                        <span class="menu-icon">
+                            <i class="bi bi-boxes fs-2"></i>
+                        </span>
+                        <span class="menu-title">Master Data</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <!--end::Menu link-->
+
+                    <!--begin::Menu sub-->
+                    <div class="menu-sub menu-sub-accordion pt-3">
+
+
+                        <!--begin::Menu item-->
+                        <div class="menu-item menu-accordion {{ request()->is('admin/master-data/produk*') ? 'show' : '' }}"
+                            data-kt-menu-trigger="click">
+                            <!--begin::Menu link-->
+                            <a href="#" class="menu-link py-3">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Produk</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <!--end::Menu link-->
+
+                            <!--begin::Menu sub produk-->
+                            <div class="menu-sub menu-sub-accordion pt-3">
+
+                                <!--begin::Menu item-->
+                                <div class="menu-item ">
+                                    <a href="{{ route('admin.master-data.produk.kategori.index') }}"
+                                        class="menu-link py-3 {{ request()->is('admin/master-data/produk/kategori*') ? 'active' : '' }}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Kategori</span>
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
+
+                                <!--begin::Menu item-->
+                                <div class="menu-item">
+                                    <a href="{{ route('admin.master-data.produk.item.index') }}"
+                                        class="menu-link py-3 {{ request()->is('admin/master-data/produk/item*') ? 'active' : '' }}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Item</span>
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
+                            </div>
+                            <!--end::Menu sub produk-->
+                        </div>
+                        <!--end::Menu item-->
+
+                        <!--begin::Menu item-->
+                        <div class="menu-item">
+                            <a href="{{ route('admin.master-data.bank.index') }}"
+                                class="menu-link py-3 {{ request()->is('admin/master-data/bank*') ? 'active' : '' }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Bank</span>
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+                    </div>
+                    <!--end::Menu sub-->
+                </div>
+                <!--end::Menu item-->
+
+                {{-- Master Data end --}}
+
                 <!--begin:Menu item-->
-                <div data-kt-menu-trigger="click"
+                {{-- <div data-kt-menu-trigger="click"
                     class="menu-item here {{ request()->is('admin/produk*') ? 'show' : '' }} menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
@@ -36,14 +118,14 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             <a class="menu-link {{ request()->is('admin/produk/kategori*') ? 'active' : '' }}"
-                                href="{{ route('admin.produk.kategori.index') }}">
+                                href="{{ route('admin.master-data.produk.kategori.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
                                 <span class="menu-title">Kategori</span>
                             </a>
                             <a class="menu-link {{ request()->is('admin/produk/item*') ? 'active' : '' }}"
-                                href="{{ route('admin.produk.item.index') }}">
+                                href="{{ route('admin.master-data.produk.item.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -55,7 +137,7 @@
 
                     </div>
                     <!--end:Menu sub-->
-                </div>
+                </div> --}}
                 <!--end:Menu item-->
 
                 <div class="menu-item"><!--begin:Menu link-->
@@ -95,6 +177,49 @@
                         <span class="menu-title">Jasa</span>
                     </a><!--end:Menu link-->
                 </div>
+
+
+                <!--begin::Menu item-->
+                <div class="menu-item menu-sub-indention menu-accordion {{ request()->is('admin/web-config*') ? 'show' : '' }}"
+                    data-kt-menu-trigger="click">
+                    <!--begin::Menu link-->
+                    <a href="#" class="menu-link py-3">
+                        <span class="menu-icon">
+                            <i class="bi bi-browser-chrome fs-2"></i>
+                        </span>
+                        <span class="menu-title">Web Config</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <!--end::Menu link-->
+
+                    <!--begin::Menu sub-->
+                    <div class="menu-sub menu-sub-accordion pt-3">
+                        <!--begin::Menu item-->
+                        <div class="menu-item">
+                            <a href="{{ route('admin.web-configcontent.index') }}"
+                                class="menu-link py-3 {{ request()->is('admin/web-config/content*') ? 'active' : '' }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Content</span>
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+                        <!--begin::Menu item-->
+                        <div class="menu-item">
+                            <a href="{{ route('admin.web-configblog.index') }}"
+                                class="menu-link py-3 {{ request()->is('admin/web-config/blog*') ? 'active' : '' }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Blog</span>
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+                    </div>
+                    <!--end::Menu sub-->
+                </div>
+                <!--end::Menu item-->
 
             </div>
             <!--end::Menu-->

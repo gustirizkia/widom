@@ -14,9 +14,18 @@ class CartController extends Controller
      */
     public function index()
     {
-        $myCart = Cart::where("user_id", auth()->user()->id)->get();
+        $myCart = Cart::where("user_id", auth()->user()->id)
+            ->with("produk")
+            ->get();
 
-        return view("pages.front.cart", compact("myCart"));
+        $totalHarga = 0;
+
+        foreach ($myCart as $item) {
+            $totalHarga += $item->produk->harga * $item->qty;
+        }
+
+
+        return view("pages.front.cart", compact("myCart", "totalHarga"));
     }
 
     /**
@@ -32,6 +41,8 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+
+        $qty = $request->qty;
         $slug = $request->slug;
 
         $produk = Produk::where("slug", $slug)->first();
@@ -41,13 +52,13 @@ class CartController extends Controller
 
         if ($myCart) {
             $myCart->update([
-                "qty" => $myCart->qty + 1
+                "qty" => $myCart->qty + $qty
             ]);
         } else {
             $myCart = Cart::create([
                 "user_id" => auth()->user()->id,
                 "produk_id" => $produk->id,
-                "qty" => 1
+                "qty" => $qty
             ]);
         }
 

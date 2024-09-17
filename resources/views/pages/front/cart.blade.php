@@ -46,9 +46,10 @@
                                                 class="form-control input__qty_{{ $item->id }}" placeholder="Qty"
                                                 aria-label="Qty" aria-describedby="basic-addon{{ $item->id }}">
                                             <button class="btn btn-outline-secondary min_qty" data-id="{{ $item->id }}"
-                                                type="button">-</button>
+                                                data-harga="{{ $item->produk->harga }}" type="button">-</button>
                                             <button class="btn btn-outline-secondary plus_qty"
-                                                data-id="{{ $item->id }}" type="button">+</button>
+                                                data-id="{{ $item->id }}" data-harga="{{ $item->produk->harga }}"
+                                                type="button">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -57,11 +58,39 @@
                     @empty
                     @endforelse
 
-                    @if (count($myCart))
-                        <button class="btn btn_primary w-100 mt-4">
-                            Checkout
-                        </button>
-                    @endif
+
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="h5">
+                                Ringkasan belanja
+                            </div>
+
+                            <div class="d-md-flex justify-content-between mb-3">
+                                <div class="">
+                                    Total Item
+                                </div>
+                                <div class="total_qty">
+
+                                </div>
+                            </div>
+                            <div class="d-md-flex justify-content-between">
+                                <div class="">
+                                    Total Harga
+                                </div>
+                                <div class="total_harga">
+
+                                </div>
+                            </div>
+
+                            @if (count($myCart))
+                                <button class="btn btn_primary w-100 mt-4">
+                                    Checkout
+                                </button>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
@@ -71,9 +100,31 @@
 
 @push('addScript')
     <script>
+        let total_harga = parseFloat({{ $totalHarga }})
+        let total_qty = parseInt({{ $myCart->sum('qty') }});
+
+        function format_rupiah(value) {
+            return value.toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        $(".total_harga").text(`Rp. ${format_rupiah(total_harga)}`)
+        $(".total_qty").text(`${format_rupiah(total_qty)}`)
+
         $(".plus_qty").on("click", function() {
             let id = $(this).attr("data-id");
             let value = $(`.input__qty_${id}`).val();
+
+            let data_harga = parseFloat($(this).attr("data-harga"));
+
+            total_harga += data_harga;
+
+            $(".total_harga").text(`Rp. ${format_rupiah(total_harga)}`)
+
+            total_qty += 1;
+
+            $(".total_qty").text(`${format_rupiah(total_qty)}`)
+
             $(`.input__qty_${id}`).val(parseInt(value) + 1);
 
         });
@@ -81,7 +132,19 @@
         $(".min_qty").on("click", function() {
             let id = $(this).attr("data-id");
             let value = $(`.input__qty_${id}`).val();
+
+            let data_harga = parseFloat($(this).attr("data-harga"));
+
+
             if (parseInt(value) > 1) {
+                total_harga -= data_harga;
+
+                $(".total_harga").text(`Rp. ${format_rupiah(total_harga)}`)
+
+                total_qty -= 1;
+
+                $(".total_qty").text(`${format_rupiah(total_qty)}`)
+
                 $(`.input__qty_${id}`).val(parseInt(value) - 1);
 
             }

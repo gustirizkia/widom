@@ -15,4 +15,9 @@ class Projek extends Model
     {
         return $this->belongsTo(User::class, "user_id", "id");
     }
+
+    public function projekHasKategoriJasa()
+    {
+        return $this->hasMany(ProjekHasKategoriJasa::class, "projek_id", "id");
+    }
 }
