@@ -204,6 +204,7 @@
                             <form action="{{ route('cart.store') }}" method="post">
                                 @csrf
                                 <input type="text" name="slug" hidden value="{{ $item->slug }}">
+                                <input type="text" class="form-control qty" value="1" name="qty" hidden>
                                 <button type="submit" class="btn btn_primary w-100">
                                     Add To Card
                                 </button>
