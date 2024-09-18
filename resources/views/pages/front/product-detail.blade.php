@@ -188,7 +188,7 @@
                         <div class="card card__produk p-4">
                             <a href="{{ route('product.show', $item->slug) }}" style="text-decoration: unset;"
                                 class="text-dark">
-                                <img src="{{ asset('storage/' . $item->thumbnail->image) }}" alt="Wisdom Produk"
+                                <img src="{{ asset('storage/' . $item->imageThumbnail->image) }}" alt="Wisdom Produk"
                                     class="img-fluid">
                                 <div class="title fw-bold text_primary mt-2">
                                     {{ $item->nama }}
