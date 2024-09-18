@@ -25,7 +25,7 @@ class BankController extends Controller
      */
     public function create()
     {
-        //
+        return view("pages.admin.bank.create");
     }
 
     /**
@@ -33,7 +33,11 @@ class BankController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->except("_token", "_method");
+
+        $bank = Bank::create($data);
+
+        return redirect()->route("admin.master-data.bank.index")->with("success", "Berhasil simpan data");
     }
 
     /**
@@ -65,6 +69,10 @@ class BankController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $bank = Bank::findOrFail($id);
+
+        $bank->delete();
+
+        return redirect()->route("admin.master-data.bank.index")->with("success", "Berhasil hapus data");
     }
 }

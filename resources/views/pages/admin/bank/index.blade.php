@@ -60,7 +60,7 @@
                                             class="btn btn-primary btn-sm">
                                             Edit
                                         </a>
-                                        <form action="{{ route('admin.master-data.produk.kategori.destroy', $item->id) }}"
+                                        <form action="{{ route('admin.master-data.bank.destroy', $item->id) }}"
                                             method="post">
                                             @csrf
                                             @method('DELETE')
