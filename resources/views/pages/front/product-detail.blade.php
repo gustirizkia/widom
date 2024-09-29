@@ -69,6 +69,10 @@
         .menu_item .item {
             white-space: nowrap;
         }
+
+        .help {
+            min-height: 400px;
+        }
     </style>
 @endpush
 
@@ -347,7 +351,7 @@
         </div>
     </div>
 
-    <div class="help py-4" style="background-color: #F5F5F5">
+    <div class="help py-4 d-flex flex-column justify-content-center" style="background-color: #F5F5F5">
         <h3 class="text-center">
             Butuh Dukungan dalam Memilih Produk Anda?
         </h3>
