@@ -202,6 +202,12 @@
     <script src="/be/dist/assets/js/scripts.bundle.js"></script>
     <!--end::Global Javascript Bundle-->
 
+    <script src="{{ asset('be/jQuery-Mask-Plugin-master/src/jquery.mask.js') }}"></script>
+    <script>
+        $('.money').mask('#.##0', {
+            reverse: true
+        });
+    </script>
     @if (Session::has('success'))
         <script>
             Swal.fire({

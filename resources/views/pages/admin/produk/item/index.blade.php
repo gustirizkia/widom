@@ -56,11 +56,11 @@
                                 </td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('admin.master-data.produk.kategori.edit', $item->id) }}"
+                                        <a href="{{ route('admin.master-data.produk.item.edit', $item->id) }}"
                                             class="btn btn-primary btn-sm">
                                             Edit
                                         </a>
-                                        <form action="{{ route('admin.master-data.produk.kategori.destroy', $item->id) }}"
+                                        <form action="{{ route('admin.master-data.produk.item.destroy', $item->id) }}"
                                             method="post">
                                             @csrf
                                             @method('DELETE')

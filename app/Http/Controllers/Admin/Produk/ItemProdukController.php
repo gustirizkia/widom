@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Produk;
 use App\Http\Controllers\Controller;
 use App\Models\ImageProduk;
 use App\Models\KategoriProduk;
+use App\Models\PertanyaanHasProduk;
 use App\Models\Produk;
 use Exception;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class ItemProdukController extends Controller
 
         try {
 
-            $dataProduk = $request->except("_token", "_method", "image", "thumbnail", "avatar_remove");
+            $dataProduk = $request->except("_token", "_method", "pertanyaan", "deskripsi", "image", "thumbnail", "avatar_remove");
             $harga = str_replace("Rp.", "", $request->harga);
             $harga = str_replace("_", "", $harga);
             $harga = str_replace(".", "", $harga);
@@ -63,13 +64,23 @@ class ItemProdukController extends Controller
                 ]);
             }
 
+            foreach ($request->pertanyaan as $index => $item) {
+                $deskripsi = $request->deskripsi[$index];
+
+                $insertPertanyaan =  PertanyaanHasProduk::create([
+                    "title" => $item,
+                    "deskripsi" => $deskripsi,
+                    "produk_id" => $produk->id
+                ]);
+            }
+
+
             DB::commit();
 
             return redirect()->back()->with("success", "Berhasil tambah item produk");
         } catch (Exception $th) {
             DB::rollBack();
 
-            dd($th);
             return redirect()->back()->with("error", "Terjadi kesalahan server");
         }
     }
@@ -87,7 +98,15 @@ class ItemProdukController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $produk = Produk::with("image", "pertanyaan")->findOrFail($id);
+        $kategori = KategoriProduk::orderBy("nama", "asc")
+
+            ->get();
+
+        return view("pages.admin.produk.item.edit", [
+            'produk' => $produk,
+            "kategori" => $kategori
+        ]);
     }
 
     /**
@@ -95,7 +114,42 @@ class ItemProdukController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $produk = Produk::with("image", "pertanyaan")->findOrFail($id);
+
+        DB::beginTransaction();
+
+        try {
+
+            $dataProduk = $request->except("_token", "_method", "pertanyaan", "deskripsi", "image", "thumbnail", "avatar_remove");
+            $harga = str_replace("Rp.", "", $request->harga);
+            $harga = str_replace("_", "", $harga);
+            $harga = str_replace(".", "", $harga);
+            $harga = str_replace(" ", "", $harga);
+
+            $dataProduk["harga"] = $harga;
+
+            $produk->update($dataProduk);
+
+            PertanyaanHasProduk::where("produk_id", $id)->delete();
+
+            foreach ($request->pertanyaan as $index => $item) {
+                $deskripsi = $request->deskripsi[$index];
+
+                $insertPertanyaan =  PertanyaanHasProduk::create([
+                    "title" => $item,
+                    "deskripsi" => $deskripsi,
+                    "produk_id" => $produk->id
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with("success", "Berhasil update data");
+        } catch (Exception $th) {
+            DB::rollBack();
+            dd($th);
+            return redirect()->back()->with("error", "Terjadi kesalahan server");
+        }
     }
 
     /**
@@ -103,6 +157,13 @@ class ItemProdukController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $produk = Produk::with("image", "pertanyaan")->findOrFail($id);
+
+        PertanyaanHasProduk::where("produk_id", $id)->delete();
+        ImageProduk::where("produk_id", $id)->delete();
+
+        $produk->delete();
+
+        return redirect()->back()->with("success", "Berhasil hapus data");
     }
 }
