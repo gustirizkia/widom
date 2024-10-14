@@ -39,7 +39,7 @@ class ProductController extends Controller
     }
     public function show($slug)
     {
-        $produk = Produk::where("slug", $slug)->firstOrFail();
+        $produk = Produk::where("slug", $slug)->with("pertanyaan")->firstOrFail();
 
         $produkLainnya = Produk::where("kategori_produk_id", $produk->kategori_produk_id)
             ->where("id", "!=", $produk->id)

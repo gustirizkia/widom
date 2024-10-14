@@ -60,6 +60,7 @@
 
         .pertanyaan_umum .card_collape {
             border: 1px solid black;
+            white-space: pre-line;
         }
 
         .menu_item {
@@ -272,50 +273,77 @@
         </div>
     </div>
 
-    <div class="pertanyaan_umum py-4">
-        <h3 class="text-center h3">
-            Pertanyaan Umum
-        </h3>
+    @if (count($produk->pertanyaan))
+        <div class="pertanyaan_umum py-4">
+            <h3 class="text-center h3">
+                Pertanyaan Umum
+            </h3>
 
-        <div class="container">
-            <div class="row justify-content-center g-0 mt-4">
-                <div class="col-md-8">
-                    <div class="row">
-                        @for ($i = 0; $i < 6; $i++)
-                            <div class="col-md-6">
-                                <div class="w-100 button_item p-3 mb-3 d-flex justify-content-between align-items-center fw-bold"
-                                    data-bs-toggle="collapse" data-bs-target="#bagaimana_{{ $i }}"
-                                    aria-expanded="false" aria-controls="bagaimana_{{ $i }}">
-                                    <div class="">
-                                        Bagaimana {{ $i + 1 }}
-                                    </div>
-                                    <div class="">
-                                        <svg width="31" height="30" viewBox="0 0 31 30" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M11.9979 30V18.9979H0.5V11.4979H11.9979V0H19.4979V11.4979H30.5V18.9979H19.4979V30H11.9979Z"
-                                                fill="#01141A" />
-                                        </svg>
+            <div class="container">
+                <div class="row justify-content-center g-0 mt-4">
+                    <div class="col-md-8">
+                        <div class="row">
+                            @foreach ($produk->pertanyaan as $index => $item)
+                                <div class="col-md-6">
+                                    <div class="w-100 button_item p-3 mb-3 d-flex justify-content-between align-items-center fw-bold"
+                                        data-bs-toggle="collapse" data-bs-target="#bagaimana_{{ $index }}"
+                                        aria-expanded="false" aria-controls="bagaimana_{{ $index }}">
+                                        <div class="">
+                                            {{ $item->title }}
+                                        </div>
+                                        <div class="">
+                                            <svg width="31" height="30" viewBox="0 0 31 30" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M11.9979 30V18.9979H0.5V11.4979H11.9979V0H19.4979V11.4979H30.5V18.9979H19.4979V30H11.9979Z"
+                                                    fill="#01141A" />
+                                            </svg>
 
+                                        </div>
                                     </div>
+                                    <div class="collapse" id="bagaimana_{{ $index }}">
+                                        <div class="card_collape p-3 mb-3">{{ $item->deskripsi }}</div>
+                                    </div>
+
                                 </div>
-                                <div class="collapse" id="bagaimana_{{ $i }}">
-                                    <div class="card_collape p-3 mb-3">
-                                        Some placeholder content for the collapse component. This panel is hidden by default
-                                        but
-                                        revealed when the user activates the relevant trigger.
-                                    </div>
-                                </div>
+                            @endforeach
+                            {{-- @for ($i = 0; $i < 6; $i++)
+                                <div class="col-md-6">
+                                    <div class="w-100 button_item p-3 mb-3 d-flex justify-content-between align-items-center fw-bold"
+                                        data-bs-toggle="collapse" data-bs-target="#bagaimana_{{ $i }}"
+                                        aria-expanded="false" aria-controls="bagaimana_{{ $i }}">
+                                        <div class="">
+                                            Bagaimana {{ $i + 1 }}
+                                        </div>
+                                        <div class="">
+                                            <svg width="31" height="30" viewBox="0 0 31 30" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M11.9979 30V18.9979H0.5V11.4979H11.9979V0H19.4979V11.4979H30.5V18.9979H19.4979V30H11.9979Z"
+                                                    fill="#01141A" />
+                                            </svg>
 
-                            </div>
-                        @endfor
+                                        </div>
+                                    </div>
+                                    <div class="collapse" id="bagaimana_{{ $i }}">
+                                        <div class="card_collape p-3 mb-3">
+                                            Some placeholder content for the collapse component. This panel is hidden by
+                                            default
+                                            but
+                                            revealed when the user activates the relevant trigger.
+                                        </div>
+                                    </div>
+
+                                </div>
+                            @endfor --}}
+                        </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
 
-    </div>
+        </div>
+    @endif
 
     <div class="sosmed py-4" style="background-color: #01141A">
         <div class="h6 text-center text-white">
