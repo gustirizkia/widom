@@ -5,6 +5,8 @@
 @endsection
 
 @push('addStyle')
+    @livewireStyles
+
     <style>
         .image-input-placeholder {
             background-image: url('{{ asset('be/src/media/svg/avatars/blank.svg') }}');
@@ -101,8 +103,8 @@
                     <label for="" class="form-label">
                         Image
                     </label>
-                    <div class="img_list d-flex ">
 
+                    <div class="img_list d-flex ">
                         @for ($i = 0; $i < 4; $i++)
                             <div class="me-5">
 
@@ -183,6 +185,23 @@
                     <textarea name="fitur" class="kt_docs_ckeditor_classic_fiture"></textarea>
                 </div>
 
+                <div class="mt-5">
+                    <div class="separator separator-content border-dark my-15">
+                        <span class="h1">Pertanyaan</span>
+                    </div>
+
+                    <div class="my_list_pertanyaan">
+
+                    </div>
+
+                    <div
+                        class="btn btn-outline btn-outline-dashed btn-outline-info btn-active-light-info w-100 add_pertanyaan">
+                        + Pertanyaan
+                    </div>
+
+
+                </div>
+
                 <button class="btn btn-primary mt-4">
                     Simpan Data
                 </button>
@@ -194,10 +213,6 @@
 @push('addScript')
     <script src="{{ asset('be/dist/assets/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
     <script>
-        Inputmask("Rp. 999.999.999", {
-            "numericInput": true
-        }).mask(".money");
-
         ClassicEditor
             .create(document.querySelector('.kt_docs_ckeditor_classic'))
             .then(editor => {
@@ -214,5 +229,41 @@
             .catch(error => {
                 console.error(error);
             });
+
+        function deletePertanyaan(idx) {
+
+            $(`.pertanyaan_data_idx_${idx}`).remove()
+        }
+
+        let idx_pertanyaan = 0;
+
+        $(".add_pertanyaan").on("click", function() {
+            $(".my_list_pertanyaan").append(`
+                <div class="row mb-3 pertanyaan_data_idx_${idx_pertanyaan}">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">
+                            Pertanyaan
+                        </label>
+                        <input type="text" class="form-control" required name="pertanyaan[]">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-between position-relative">
+                            <label for="" class="form-label">
+                                Deskripsi
+                            </label>
+                            <div class="position-absolute " style="right: 0">
+                                <div class="" onclick="deletePertanyaan(${idx_pertanyaan})">
+                                    {{-- <i class="bi bi-trash3 text-danger"></i> --}}
+                                    <i class="bi bi-x-circle-fill text-danger fs-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea class="form-control" name="deskripsi[]" required></textarea>
+                    </div>
+                </div>
+            `)
+
+            idx_pertanyaan++
+        })
     </script>
 @endpush

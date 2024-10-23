@@ -56,7 +56,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="{{ route('admin.master-data.produk.kategori.edit', $item->id) }}"
+                                        <a href="{{ route('admin.master-data.bank.edit', $item->id) }}"
                                             class="btn btn-primary btn-sm">
                                             Edit
                                         </a>

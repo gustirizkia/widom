@@ -25,6 +25,11 @@ class Produk extends Model
         return $this->hasOne(ImageProduk::class, "produk_id", "id")->where("is_thumbnail", 1);
     }
 
+    public function pertanyaan()
+    {
+        return $this->hasMany(PertanyaanHasProduk::class, "produk_id", "id");
+    }
+
     protected static function boot()
     {
         parent::boot();

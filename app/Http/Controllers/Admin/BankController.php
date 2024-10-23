@@ -53,7 +53,11 @@ class BankController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $bank = Bank::findOrFail($id);
+
+        return view("pages.admin.bank.edit", [
+            'bank' => $bank
+        ]);
     }
 
     /**
@@ -61,7 +65,11 @@ class BankController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->except("_token", "_method");
+
+        $bank = Bank::where("id", $id)->update($data);
+
+        return redirect()->route("admin.master-data.bank.index")->with("success", "Berhasil update data");
     }
 
     /**
