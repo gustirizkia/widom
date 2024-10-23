@@ -230,6 +230,18 @@
                         </div>
                         <!--end::Menu item-->
 
+                        <!--begin::Menu item-->
+                        <div class="menu-item">
+                            <a href="{{ route('admin.web-configinformasi.index') }}"
+                                class="menu-link py-3 {{ request()->is('admin/web-config/informasi*') ? 'active' : '' }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Informasi</span>
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+
 
                     </div>
                     <!--end::Menu sub-->
