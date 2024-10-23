@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminJasaController;
 use App\Http\Controllers\Admin\AdminProjekController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\KategoriBlogController;
 use App\Http\Controllers\Admin\PageWebController;
 use App\Http\Controllers\Admin\Produk\ItemProdukController;
 use App\Http\Controllers\Admin\Produk\KategoriProdukController;
@@ -33,6 +34,7 @@ Route::prefix("admin")->name("admin.")->group(function () {
 
     Route::prefix("web-config")->name("web-config")->group(function () {
         Route::resource("content", WebConfigController::class);
+        Route::resource("kategori-blog", KategoriBlogController::class);
         Route::resource("blog", BlogController::class);
     });
 });

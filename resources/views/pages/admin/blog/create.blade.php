@@ -1,22 +1,40 @@
 @extends('layouts.admin')
 
+@section('title')
+    Tambah Data Blog
+@endsection
+
 @section('content')
     <div class="card">
         <div class="card-body">
             <form action="{{ route('admin.web-configblog.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row ">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="" class="form-label required">
                             Image
                         </label>
                         <input type="file" class="form-control" name="image" required>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-4 mb-3">
                         <label for="" class="form-label required">
                             Nama
                         </label>
                         <input type="text" class="form-control" name="nama" required>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="" class="form-label required">
+                            Kategori Blog
+                        </label>
+                        <select class="form-select" data-control="select2" name="kategori_id"
+                            data-placeholder="Select an option" required>
+                            <option></option>
+                            @foreach ($kategoriBlog as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ $item->nama }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-md-12 mb-3">
                         <label for="" class="form-label required">

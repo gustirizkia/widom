@@ -44,10 +44,13 @@
                                 <!--end::Avatar-->
                                 <!--begin::Username-->
                                 <div class="d-flex flex-column">
-                                    <div class="fw-bold d-flex align-items-center fs-5">Robert Fox
+                                    <div class="fw-bold d-flex align-items-center fs-5">
+                                        {{ auth()->user()->name }}
                                     </div>
-                                    <a href="#"
-                                        class="fw-semibold text-muted text-hover-primary fs-7">robert@kt.com</a>
+                                    <a href="{{ route('profile.index') }}"
+                                        class="fw-semibold text-muted text-hover-primary fs-7">
+                                        {{ auth()->user()->email }}
+                                    </a>
                                 </div>
                                 <!--end::Username-->
                             </div>
@@ -58,7 +61,7 @@
                         <!--end::Menu separator-->
                         <!--begin::Menu item-->
                         <div class="menu-item px-5">
-                            <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My
+                            <a href="{{ route('profile.index') }}" class="menu-link px-5">My
                                 Profile</a>
                         </div>
                         <!--end::Menu item-->

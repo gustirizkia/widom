@@ -66,11 +66,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item ">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
-
-                        </li>
-
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -108,8 +103,8 @@
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
                                 About Us
                             </a>
                             <ul class="dropdown-menu">
@@ -128,9 +123,27 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item ">
+                        {{-- <li class="nav-item ">
                             <a class="nav-link active" aria-current="page" href="/blog">Blog</a>
 
+                        </li> --}}
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Blog
+                            </a>
+                            <ul class="dropdown-menu">
+                                @foreach ($kategoriBlog as $item)
+                                    <li><a class="dropdown-item"
+                                            href="/blog?kategori={{ $item->slug }}">{{ $item->nama }}</a></li>
+                                @endforeach
+
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/blog">Semua Blog</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
@@ -181,11 +194,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <div class="fw-bold mb-4">
-                        <a href="/" style="color: unset; text-decoration: unset">
-                            Home
-                        </a>
-                    </div>
+
                     <div class="fw-bold mb-4">
                         <a href="{{ route('cart.index') }}" style="color: unset; text-decoration: unset">
                             Cart
@@ -225,7 +234,7 @@
                             <li><a class="dropdown-item" href="/jasa">All Service</a></li>
                         </ul>
                     </div>
-                    <div class="dropdown fw-bold">
+                    <div class="dropdown fw-bold mb-4">
                         <div class=" " data-bs-toggle="dropdown" aria-expanded="false">
                             About Us
                         </div>
@@ -234,12 +243,27 @@
                                 <li><a class="dropdown-item"
                                         href="{{ route('page-web', $item->slug) }}">{{ $item->nama }}</a></li>
                             @endforeach
+                        </ul>
+                    </div>
+                    <div class="dropdown fw-bold">
+                        <div class=" " data-bs-toggle="dropdown" aria-expanded="false">
+                            Blog
+                        </div>
+                        <ul class="dropdown-menu">
+                            @foreach ($kategoriBlog as $item)
+                                <li><a class="dropdown-item"
+                                        href="/blog?kategori={{ $item->slug }}">{{ $item->nama }}</a></li>
+                            @endforeach
+
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="/">Blog</a></li>
+                            <li><a class="dropdown-item" href="/blog">Semua Blog</a></li>
                         </ul>
                     </div>
+
+
+
                 </div>
             </div>
 
