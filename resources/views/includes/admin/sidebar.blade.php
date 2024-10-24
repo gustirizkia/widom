@@ -151,10 +151,9 @@
                 <div class="menu-item"><!--begin:Menu link-->
                     <a class="menu-link {{ request()->is('admin/transaksi*') ? 'active' : '' }}"
                         href="{{ route('admin.transaksi.index') }}">
-                        <span class="menu-icon"><i class="ki-duotone ki-calendar-8 fs-2"><span
-                                    class="path1"></span><span class="path2"></span><span class="path3"></span><span
-                                    class="path4"></span><span class="path5"></span><span
-                                    class="path6"></span></i></span>
+                        <span class="menu-icon">
+                            <i class="bi bi-cash-coin fs-2"></i>
+                        </span>
                         <span class="menu-title">Transaksi</span>
                     </a><!--end:Menu link-->
                 </div>
@@ -247,6 +246,47 @@
                     <!--end::Menu sub-->
                 </div>
                 <!--end::Menu item-->
+                <!--begin::Menu item-->
+                <div class="menu-item menu-sub-indention menu-accordion {{ request()->is('admin/akses*') ? 'show' : '' }}"
+                    data-kt-menu-trigger="click">
+                    <!--begin::Menu link-->
+                    <a href="#" class="menu-link py-3">
+                        <span class="menu-icon">
+                            <i class="bi bi-people-fill fs-2"></i>
+                        </span>
+                        <span class="menu-title">Akses</span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <!--end::Menu link-->
+
+                    <!--begin::Menu sub-->
+                    <div class="menu-sub menu-sub-accordion pt-3">
+                        <!--begin::Menu item-->
+                        <div class="menu-item">
+                            <a href="{{ route('admin.akses.admin.index') }}"
+                                class="menu-link py-3 {{ request()->is('admin/akses/admin*') ? 'active' : '' }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Admin</span>
+                            </a>
+                            <a href="{{ route('admin.akses.user.index') }}"
+                                class="menu-link py-3 {{ request()->is('admin/akses/user*') ? 'active' : '' }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">User</span>
+                            </a>
+                        </div>
+                        <!--end::Menu item-->
+
+
+                    </div>
+                    <!--end::Menu sub-->
+                </div>
+                <!--end::Menu item-->
+
+
 
             </div>
             <!--end::Menu-->
