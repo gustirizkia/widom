@@ -10,6 +10,7 @@ use App\Http\Controllers\Front\ProductController;
 use App\Http\Controllers\Front\ProjekController;
 use App\Http\Controllers\Front\ServiceController;
 use App\Http\Controllers\Front\TransaksiController;
+use App\Http\Controllers\Front\UserFrontController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,7 @@ Route::middleware("auth")->group(function () {
     Route::resource("cart", CartController::class);
     Route::resource("projek", ProjekController::class);
     Route::resource("transaksi", TransaksiController::class);
+    Route::resource("profile", UserFrontController::class);
 });
 
 Route::get("page/{slug}", [PageController::class, "index"])->name("page-web");

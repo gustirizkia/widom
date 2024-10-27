@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
 @section('title')
-    Tambah Data Blog
+    Tambah Data Informasi
 @endsection
 
 @section('content')
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.web-configblog.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.web-configinformasi.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="row ">
                     <div class="col-md-4 mb-3">
@@ -24,13 +24,13 @@
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="" class="form-label required">
-                            Kategori Blog
+                            Tag
                         </label>
-                        <select class="form-select" data-control="select2" name="kategori_id"
+                        <select class="form-select" data-control="select2" multiple name="tag[]"
                             data-placeholder="Select an option" required>
                             <option></option>
-                            @foreach ($kategoriBlog as $item)
-                                <option value="{{ $item->id }}">
+                            @foreach ($dataTag as $item)
+                                <option value="{{ $item->slug }}">
                                     {{ $item->nama }}
                                 </option>
                             @endforeach

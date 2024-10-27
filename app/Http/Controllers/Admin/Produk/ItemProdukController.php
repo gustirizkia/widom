@@ -51,8 +51,11 @@ class ItemProdukController extends Controller
 
             $dataProduk["harga"] = $harga;
 
-            $produk = Produk::create($dataProduk);
+            if ($request->type === "mesin") {
+                $dataProduk["type"] = $request->type;
+            }
 
+            $produk = Produk::create($dataProduk);
 
             foreach ($request->image as $index => $image) {
                 $is_thumbnail = $request->thumbnail;

@@ -11,9 +11,21 @@
             <form action="">
                 <div class="row mb-3 justify-content-between">
                     <div class="col-md-2">
-                        <a href="{{ route('admin.master-data.produk.item.create') }}" class="btn btn-primary">
-                            Tambah Data
-                        </a>
+
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Tambah Data
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                        href="{{ route('admin.master-data.produk.item.create', ['type' => 'produk']) }}">Produk</a>
+                                </li>
+                                <li><a class="dropdown-item"
+                                        href="{{ route('admin.master-data.produk.item.create', ['type' => 'mesin']) }}">Mesin</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group mb-5">

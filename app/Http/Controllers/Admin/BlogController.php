@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\KategoriBlog;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -23,7 +24,9 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view("pages.admin.blog.create");
+        $kategoriBlog = KategoriBlog::orderBy("nama", 'asc')->get();
+
+        return view("pages.admin.blog.create", compact("kategoriBlog"));
     }
 
     /**

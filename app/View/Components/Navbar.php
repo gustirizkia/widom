@@ -4,6 +4,7 @@ namespace App\View\Components;
 
 use App\Models\Cart;
 use App\Models\JasaKategori;
+use App\Models\KategoriBlog;
 use App\Models\KategoriProduk;
 use App\Models\Pageweb;
 use Closure;
@@ -38,11 +39,14 @@ class Navbar extends Component
         $kategoriProduk = KategoriProduk::get();
         $kategoriJasa = JasaKategori::limit(5)->get();
 
+        $kategoriBlog = KategoriBlog::orderBy("nama", "asc")->get();
+
         return view('components.navbar', [
             "cart" => $cart,
             "page" => $page,
             "kategoriProduk" => $kategoriProduk,
-            "kategoriJasa" => $kategoriJasa
+            "kategoriJasa" => $kategoriJasa,
+            "kategoriBlog" => $kategoriBlog
         ]);
     }
 }
