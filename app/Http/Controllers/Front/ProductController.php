@@ -46,6 +46,10 @@ class ProductController extends Controller
             ->limit(4)
             ->get();
 
-        return view("pages.front.product-detail", compact("produk", "produkLainnya"));
+        if ($produk->type === "mesin") {
+            return view("pages.front.mesin-detail", compact("produk", "produkLainnya"));
+        } else {
+            return view("pages.front.product-detail", compact("produk", "produkLainnya"));
+        }
     }
 }
