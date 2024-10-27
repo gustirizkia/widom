@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Tambah Item Produk
+    TAMBAH DATA {{ strtoupper(request()->get('type')) }}
 @endsection
 
 @push('addStyle')
@@ -23,6 +23,7 @@
         <div class="card-body">
             <form action="{{ route('admin.master-data.produk.item.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input type="text" hidden value="{{ request()->get('type') }}" name="type">
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label for="" class="form-label required">
@@ -150,8 +151,8 @@
                                     <!--begin::Remove button-->
                                     <span
                                         class="btn btn-icon btn-circle btn-color-muted btn-active-color-primary w-25px h-25px bg-body shadow"
-                                        data-kt-image-input-action="remove" data-bs-toggle="tooltip" data-bs-dismiss="click"
-                                        title="Remove avatar">
+                                        data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                                        data-bs-dismiss="click" title="Remove avatar">
                                         <i class="ki-outline ki-cross fs-3"></i>
                                     </span>
                                     <!--end::Remove button-->
