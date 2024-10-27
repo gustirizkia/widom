@@ -7,8 +7,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="">
-                    <img src="{{ asset('image/logo_desktop_dark.png') }}" class="img-fluid" alt="Logo Wisdom"
-                        style="width: 148px;">
+                    <a href="/">
+                        <img src="{{ asset('image/logo_desktop_dark.png') }}" class="img-fluid" alt="Logo Wisdom"
+                            style="width: 148px;">
+                    </a>
                 </div>
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item me-4" style="min-width: 18rem;">

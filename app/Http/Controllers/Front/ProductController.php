@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Informasi;
 use App\Models\KategoriProduk;
 use App\Models\Produk;
 use Illuminate\Http\Request;
@@ -46,10 +47,12 @@ class ProductController extends Controller
             ->limit(4)
             ->get();
 
+        $informasi = Informasi::where("tag", "LIKE", "%$produk->slug%")->get();
+
         if ($produk->type === "mesin") {
-            return view("pages.front.mesin-detail", compact("produk", "produkLainnya"));
+            return view("pages.front.mesin-detail", compact("produk", "produkLainnya", "informasi"));
         } else {
-            return view("pages.front.product-detail", compact("produk", "produkLainnya"));
+            return view("pages.front.product-detail", compact("produk", "produkLainnya", "informasi"));
         }
     }
 }

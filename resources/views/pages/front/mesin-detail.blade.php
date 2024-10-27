@@ -243,35 +243,7 @@
 
     </div>
 
-    <div id="service" class="py-5">
-        <div class="container">
-            <div class="row">
-                @for ($i = 0; $i < 3; $i++)
-                    <div class="col-md-4 mb-3">
-                        <div class="card ">
-                            <img src="https://images.unsplash.com/photo-1716191300020-b52dec5b70a8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="Wisdom Produk" class="img-fluid card-img-top">
-
-                            <div class="card-body">
-                                <div class="title fw-bold text_primary">
-                                    Apa yang ingin anda buat
-                                </div>
-                                <div class="my-1">
-                                    Dapatkan Solusi Design Bersama Kami
-                                    Masukan text informasi di sini minimal dua baris teks
-                                </div>
-
-                            </div>
-                            <div class="card-footer bg-white">
-                                <i class="bi bi-arrow-right-circle"></i> <span class="ms-1">Pelajari informasi
-                                    selengkapnya</span>
-                            </div>
-                        </div>
-                    </div>
-                @endfor
-            </div>
-        </div>
-    </div>
+    <x-informasi-component :slug="$produk->slug" />
 
     @if (count($produk->pertanyaan))
         <div class="pertanyaan_umum py-4">

@@ -31,6 +31,9 @@
 @endpush
 
 @section('content')
+    @include('includes._modal_video', [
+        'videoYtb' => $webConfig->where('flag', 'youtube_url')->first(),
+    ])
     {{-- Header --}}
     <div class="header d-flex flex-row align-items-center h-100">
         <div class="container">
@@ -43,7 +46,8 @@
                         {{ contentWeb('subtitle_header_home') }}
                     </h5>
 
-                    <div class="btn text_primary fw-bold px-5 my-3" style="background: white">
+                    <div class="btn text_primary fw-bold px-5 my-3" style="background: white" data-bs-toggle="modal"
+                        data-bs-target="#modalVideo">
                         Mulai Video
                     </div>
                 </div>
@@ -57,11 +61,18 @@
     </div>
     {{-- Header emd --}}
 
+
+
+    {{-- <div class="ratio ratio-16x9">
+        <iframe src="https://www.youtube.com/embed/UUUWIGx3hDE-n8?rel=0" title="YouTube video" allowfullscreen></iframe>
+    </div> --}}
+
     <div class="about mt-5 py-4">
         <div class="container">
             <div class="row justify-content-center align-items-center g-5">
                 <div class="col-md-5">
-                    <img src="{{ asset('image/about.png') }}" alt="" class="img-fluid">
+                    <img src="{{ asset('image/about.png') }}" alt="" class="img-fluid" data-bs-toggle="modal"
+                        data-bs-target="#modalVideo">
                 </div>
                 <div class="col-md-7">
                     <h2 class="h2">
@@ -109,33 +120,5 @@
         </div>
     </div>
 
-    <div id="service" class="py-5">
-        <div class="container">
-            <div class="row">
-                @for ($i = 0; $i < 4; $i++)
-                    <div class="col-md-4 mb-3">
-                        <div class="card ">
-                            <img src="https://images.unsplash.com/photo-1716191300020-b52dec5b70a8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                                alt="Wisdom Produk" class="img-fluid card-img-top">
-
-                            <div class="card-body">
-                                <div class="title fw-bold text_primary">
-                                    Apa yang ingin anda buat
-                                </div>
-                                <div class="my-1">
-                                    Dapatkan Solusi Design Bersama Kami
-                                    Masukan text informasi di sini minimal dua baris teks
-                                </div>
-
-                            </div>
-                            <div class="card-footer bg-white">
-                                <i class="bi bi-arrow-right-circle"></i> <span class="ms-1">Pelajari informasi
-                                    selengkapnya</span>
-                            </div>
-                        </div>
-                    </div>
-                @endfor
-            </div>
-        </div>
-    </div>
+    <x-informasi-component />
 @endsection
